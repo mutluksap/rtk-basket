@@ -15,8 +15,9 @@ function App() {
     }, [])
 
     const { products, loading, error } = useSelector(state => state.products);
-    const mainClass = classNames("w-full container mx-auto md pt-20 flex items-center justify-center h-full",{
-        "h-auto": products.length > 0
+    const mainClass = classNames("w-full container mx-auto md pt-20 flex items-center justify-center",{
+        "h-auto": products.length > 0,
+        "h-full": products.length < 1
     })
   return (
       <div className="h-full w-full">
