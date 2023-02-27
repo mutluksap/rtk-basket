@@ -7,6 +7,7 @@ import {useEffect} from "react";
 import Loading from "./components/Loading";
 import Card from "./components/Card"
 import { Routes, Route } from "react-router-dom"
+import classNames from "classnames";
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -14,11 +15,13 @@ function App() {
     }, [])
 
     const { products, loading, error } = useSelector(state => state.products);
-
+    const mainClass = classNames("w-full container mx-auto md pt-20 flex items-center justify-center h-full",{
+        "h-auto": products.length > 0
+    })
   return (
       <div className="h-full w-full">
           <Header/>
-          <div className="w-full container mx-auto md pt-20">
+          <div className={mainClass}>
           {loading && <Loading/>}
           {error && error}
           {products.length > 0 &&

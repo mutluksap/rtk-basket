@@ -3,7 +3,6 @@ import { redirect } from "react-router-dom";
 
 const initialState = {
     basket: [],
-    totalPrice: 0,
     warningAlreadyInBasket: false,
     warningProductCount: false
 }
@@ -23,15 +22,15 @@ const basket = createSlice({
                 }
                 else {
                     state.basket = [action.payload, ...state.basket]
-                    state.totalPrice += action.payload.count * action.payload.price;
                     state.warningAlreadyInBasket = false
                 }
                 state.warningProductCount = false;
             }
         },
         removeBasket: (state, action) => {
-            state.basket.splice(action.payload.id, 1);
-            state.basket.length > 0 && redirect("/");
+            const index = state.basket.findIndex(e => e.id === action.payload)
+            state.basket.splice(index, 1);
+            state.basket.length === 0 && redirect("/");
         },
         changeCount: (state, action) => {
             const product = state.basket.findIndex(e => e.id === action.payload.id);
